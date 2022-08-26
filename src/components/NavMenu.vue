@@ -48,7 +48,14 @@ function onClick(item) {
 $border-radius: 5px;
 
 .dropdown {
-    width: 200px;
+
+    @media only screen and (min-width: 1280px) {
+        width: 200px;
+    }
+
+    @media only screen and (max-width: 1280px) {
+        height: 30px;
+    }
     position: relative;
     
     > div:first-of-type {
@@ -57,19 +64,23 @@ $border-radius: 5px;
 
         background-color: greenyellow;
         color: black;
-        text-align: center;
-        width: 100%;
+        width: calc(100% - 2px);
+        height: 100%;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
-    &:hover {
-        //animation: test 0.5s;
+    &:hover, &:active {
+        animation: test 0.5s;
 
         > div:first-of-type {
             border-radius: $border-radius $border-radius 0 0;
         }
 
         > div:last-of-type {
-            opacity: 1;
+            display: flex;
         }
 
     }
@@ -88,7 +99,7 @@ $border-radius: 5px;
         top: 100%;
         right: 0;
 
-        opacity: 0;
+        display: none;
         transition: 0.5s;
 
         > span {
@@ -101,7 +112,7 @@ $border-radius: 5px;
                 border-top: 1px solid gray;
             }
 
-            &:hover {
+            &:hover, &:active {
                 background-color: rgba(0, 0, 0, 0.15);
             }
         }

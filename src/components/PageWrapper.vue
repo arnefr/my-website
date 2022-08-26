@@ -17,7 +17,7 @@
                 <Home></Home>
             </div>
         </div>
-        <div class="footer">© by arne August 2022. All rights reserved.</div>
+        <div class="footer">© by arne August 2022. All rights reserved. Version: 1.6.1</div>
     </div>
 </template>
 
@@ -32,6 +32,7 @@ import Login from './Login.vue';
 const currentPage = ref("")
 
 onMounted(() => {
+    currentPage.value = window.location.hash
     window.addEventListener("hashchange", () => {
         currentPage.value = window.location.hash
     })
@@ -41,13 +42,16 @@ onMounted(() => {
 
 <style lang="scss">
 .wrapper {
-    width: 1280px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
     height: calc(100vh - 100px);
     margin: 0 auto;
     box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.45);
+
+    @media only screen and (min-width: 1280px) {
+        width: 1280px;
+    }
 
 
     .footer {

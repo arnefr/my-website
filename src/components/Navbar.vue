@@ -8,8 +8,8 @@
         <div>
             <div><NavMenu></NavMenu></div>
             <div class="searchbox">
-                <input v-model="msg" placeholder="Search" />
-                <button></button>
+                <input v-model="mySearchContent" placeholder="Search" @keydown.enter="funcSearch" />
+                <button @click="funcSearch" type="submit"></button>
             </div>
         </div>
     </div>
@@ -17,24 +17,31 @@
 
 
 <script setup>
+
 import { ref } from 'vue';
 import NavMenu from './NavMenu.vue';
-
+const mySearchContent = ref ('')
+function funcSearch () {
+    const myurl = new URL("https://de.wikipedia.org/w/index.php")
+    myurl.searchParams.append("search", mySearchContent.value)
+    window.location.href = myurl.toString()
+    
+}
 
 </script>
 
 
 <style lang="scss">
+
 .navbar {
     background-color: #444;
-    height: 100px;
     color: white;
     display: flex;
     flex-direction: column;
     position: relative;
     z-index: 1000;
 
-    >div {
+    > div {
         flex-grow: 1;
 
 
@@ -42,22 +49,28 @@ import NavMenu from './NavMenu.vue';
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 5px;
         }
 
         &:last-of-type {
             display: flex;
             justify-content: space-between;
+            gap: 5px;
             padding: 5px;
+
+            @media only screen and (max-width: 1280px) {
+                flex-direction: column-reverse;
+            }
         }
     }
     .searchbox {
-        background-color: aqua;
         display: flex;
 
         input {
             padding: 5px;
             border-radius: 0;
             border: none;
+            width: 100%;
         }
 
         button{
@@ -68,7 +81,7 @@ import NavMenu from './NavMenu.vue';
             background-repeat: no-repeat;
             background-position: center;
             background-origin: content-box;
-            padding: 10px;
+            padding: 5px;
             width: 50px;
 
             &:hover{
